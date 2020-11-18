@@ -1,6 +1,14 @@
 import React from 'react';
 import { StyleSheet, Text, View } from 'react-native';
 import * as Font from "expo-font";
+import { AppLoading } from 'expo';
+
+const fetchFonts = () => {
+  return Font.loadAsync({
+    'open-sans': require('./assets/Fonts/OpenSans-Regular.ttf'),
+    'open-sans-bold': require('./assets/Fonts/OpenSans-Bold')
+  });
+};
 
 export default function App() {
 
