@@ -2,7 +2,7 @@ import React from 'react';
 import {View, Text, Button, StyleSheet} from 'react-native';
 import { HeaderButtons, Item } from 'react-navigation-header-buttons';
 import { MEALS } from '../data/dummy-data';
-import CustomHeaderButton from '../components/HeaderButtons';
+import HeaderButton from '../components/CustomHeaderButtons';
 
 const MealDetailScreen = props => {
     const mealId = props.navigation.getParam('mealId');
@@ -16,18 +16,34 @@ const MealDetailScreen = props => {
     </View>
     );
 };
-MealDetailScreen.navigationOptions =  navigationData => {
+
+MealDetailScreen.navigationOptions = (navigationData) => {
     const mealId = navigationData.navigation.getParam('mealId');
     const selectedMeal = MEALS.find(meal => meal.id === mealId);
-    return {
-        headerTitle: selectedMeal.title,
-        headerRight: ( () => {
-        <HeaderButtons HeaderButtonComponent={CustomHeaderButton}>
-        <Item title='Favorite' iconName='ios-star' onPress={() => {console.log("hello")}}/>
-    </HeaderButtons>
-    }
-        )
+    const headerRightButton = () => {
+        return (
+            <HeaderButtons HeaderButtonComponent={HeaderButton}>
+                            <Item 
+                                title= 'Favorite'
+                                iconName="ios-star"
+                                onPress= {() => {
+                                    console.log('Added to favorites');
+                                }}
+                            />
+                            <Item 
+                                title= 'Favorite'
+                                iconName= "ios-star-outline"
+                                onPress= {() => {
+                                    console.log('Added to favorites2');
+                                }}
+                            /> 
+                      </HeaderButtons>
+        );
     };
+    return {
+            headerTitle: selectedMeal.title,
+            headerRight: (headerRightButton)
+        };
 };
 const styles = StyleSheet.create({
     screen: {
